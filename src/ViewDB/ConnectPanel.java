@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
-
+package ViewDB;
 
 import Connection.Connect;
+
 /**
  *
  * @author Admin
  */
 public class ConnectPanel extends javax.swing.JFrame {
 
-    private Connect con;   
-   
+    private Connect con;
+
     public ConnectPanel() {
         initComponents();
     }
@@ -147,23 +147,21 @@ public class ConnectPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         con = new Connect(jTextPaneHost.getText(), jTextPanePort.getText(), jTextPaneName.getText(),
-                jTextPaneLogin.getText(),jTextPanePass.getText());
+                jTextPaneLogin.getText(), jTextPanePass.getText());
         MainPanel.MainP.setVisible(true);
         MainPanel.MainP.openConnect();
         this.dispose();
-         
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
     public Connect getCon() {
         return con;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

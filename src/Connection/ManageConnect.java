@@ -18,8 +18,8 @@ import java.sql.Statement;
 public class ManageConnect {
 
     private Connect con;   
-    private Connection connection = null;
-    private Statement statement = null;
+    private Connection connection;
+    private Statement statement;
     
     public ManageConnect(Connect con) {
        this.con = con;
@@ -37,20 +37,18 @@ public class ManageConnect {
         }
     }
     
-//    public boolean closeConnection(){
-//        if (connection != null) {
-//                try {
-//                    connection.close(); // Каскадное закрытие statement, resultSet
-//                    
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(ManageConnect.class.getName()).log(
-//                            Level.SEVERE,
-//                            null, ex);
-//                    return false;
-//                }
-//            }
-//        return true;
-//    }
+    public boolean closeConnection(){
+        if (connection != null) {
+                try {
+                    connection.close(); // Каскадное закрытие statement, resultSet
+                    
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    return false;
+                }
+            }
+        return true;
+    }
     
     public ResultSet executeQuery(String query) throws SQLException{
         if(statement != null){

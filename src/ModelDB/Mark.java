@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package ModelDB;
 
 import java.sql.Date;
 
@@ -11,30 +11,32 @@ import java.sql.Date;
  *
  * @author Admin
  */
-public class Homework {
-    
-    private int id_homework;
-    private int id_class;
+public class Mark {
+
+    int id_mark;
+    private int id_pupil;
     private int id_teacher;
     private int id_subject;
-    private String homework;
+    private int mark;
     private Date date;
 
-    public Homework(int id_homework, int id_class, int id_teacher, int id_subject, String homework, Date date) {
-        this.id_homework = id_homework;
-        this.id_class = id_class;
+    public Mark(int id_mark, int id_pupil, int id_teacher, int id_subject, int mark, Date date) {
+        this.id_mark = id_mark;
+        this.id_pupil = id_pupil;
         this.id_teacher = id_teacher;
         this.id_subject = id_subject;
-        this.homework = homework;
+        this.mark = mark;
         this.date = date;
     }
 
-    public int getId_homework() {
-        return id_homework;
+    public Mark() {}
+
+    public int getId_mark() {
+        return id_mark;
     }
 
-    public int getId_class() {
-        return id_class;
+    public int getId_pupil() {
+        return id_pupil;
     }
 
     public int getId_teacher() {
@@ -45,20 +47,20 @@ public class Homework {
         return id_subject;
     }
 
-    public String getHomework() {
-        return homework;
+    public int getMark() {
+        return mark;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setId_homework(int id_homework) {
-        this.id_homework = id_homework;
+    public void setId_mark(int id_mark) {
+        this.id_mark = id_mark;
     }
 
-    public void setId_class(int id_class) {
-        this.id_class = id_class;
+    public void setId_pupil(int id_pupil) {
+        this.id_pupil = id_pupil;
     }
 
     public void setId_teacher(int id_teacher) {
@@ -69,8 +71,8 @@ public class Homework {
         this.id_subject = id_subject;
     }
 
-    public void setHomework(String homework) {
-        this.homework = homework;
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 
     public void setDate(Date date) {
