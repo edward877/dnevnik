@@ -40,7 +40,7 @@ public class ManageConnect {
     public boolean closeConnection(){
         if (connection != null) {
                 try {
-                    connection.close(); // Каскадное закрытие statement, resultSet
+                    connection.close(); 
                     
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
@@ -62,5 +62,15 @@ public class ManageConnect {
 
     }
     
+     public int executeUpdate(String query) throws SQLException{
+        if(statement != null){
+            try {
+                return statement.executeUpdate(query);
+            } catch (SQLException ex) {
+               throw ex;
+            }   
+        }
+        return 0;
+    }
     
 }

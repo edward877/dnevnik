@@ -20,8 +20,7 @@ public class Mark {
     private int mark;
     private Date date;
 
-    public Mark(int id_mark, int id_pupil, int id_teacher, int id_subject, int mark, Date date) {
-        this.id_mark = id_mark;
+    public Mark(int id_pupil, int id_teacher, int id_subject, int mark, Date date) {
         this.id_pupil = id_pupil;
         this.id_teacher = id_teacher;
         this.id_subject = id_subject;
