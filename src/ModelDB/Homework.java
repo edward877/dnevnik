@@ -20,13 +20,16 @@ public class Homework {
     private String homework;
     private Date date;
 
-    public Homework(int id_homework, int id_class, int id_teacher, int id_subject, String homework, Date date) {
-        this.id_homework = id_homework;
+    public Homework(int id_class, int id_teacher, int id_subject, String homework, Date date) {
         this.id_class = id_class;
         this.id_teacher = id_teacher;
         this.id_subject = id_subject;
         this.homework = homework;
         this.date = date;
+    }
+
+    public Homework() {
+        
     }
 
     public int getId_homework() {

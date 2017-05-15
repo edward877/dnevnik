@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ModelDB.Mark;
 import java.sql.Date;
+import java.util.Formatter;
 
 /**
  *
@@ -25,45 +26,42 @@ public class MarkDB {
         this.mConnect = mConnect;
     }
 
-    public void add(int id_pupil,int id_teacher, int id_subject, int mark, Date date) throws SQLException {
+    public void add(Mark mark) throws SQLException {
         try {
-            String query = "insert into mark values ( nextval('seq_mark'),"
-                    + id_pupil + ","
-                    + id_teacher + ","
-                    + id_subject + ","
-                    + mark + ",'"
-                    + date + "');";
-            mConnect.executeUpdate(query);
+            Formatter f = new Formatter();
+            f.format("insert into mark values ( nextval('seq_mark'), %d, %d, %d, %d, '"+mark.getDate() + "')" ,
+                    mark.getId_pupil(), mark.getId_teacher(), mark.getId_subject(),mark.getMark(),mark.getDate());
             
+            mConnect.executeUpdate(f.toString());
+
         } catch (SQLException ex) {
             throw ex;
         }
     }
 
-     public void update(int id_mark, int id_pupil,int id_teacher, int id_subject, int mark, Date date) throws SQLException {
-        try{
-            String query = "update mark set  id_pupil=" +  id_pupil 
-                    + ",id_teacher =  " + id_teacher 
-                   + ",id_subject =  " + id_subject 
-                    + ",mark =  " + mark 
-                    + ",date =  '" + date + "'"
-                    + "where id_mark = " + id_mark;
+    public void update(Mark mark) throws SQLException {
+        try {
+            Formatter f = new Formatter();
+            f.format("update mark set  id_pupil = %d,id_teacher = %d, id_subject = %d, mark = %d, date = '" + mark.getDate()+"'  where id_mark = %d;",
+                    mark.getId_pupil(), mark.getId_teacher(), mark.getId_subject(),mark.getMark(), mark.getId_mark());
+            
+            mConnect.executeUpdate(f.toString());
+        } catch (SQLException ex) {
+            throw ex;
+        }
+    }
+
+    public void delete(Mark mark) throws SQLException {
+        try {
+            String query = "delete from mark where id_mark = " + mark.getId_mark();
             mConnect.executeUpdate(query);
         } catch (SQLException ex) {
             throw ex;
         }
     }
-    
-     public void delete(int id_mark) throws SQLException {
-        try{
-            String query = "delete from mark where id_mark = " + id_mark;
-            mConnect.executeUpdate(query);
-        } catch (SQLException ex) {
-            throw ex;
-        }
-    }
-    
-      List<Mark> entities = null;
+
+    List<Mark> entities = null;
+
     public List<Mark> all() {
         try {
             entities = new ArrayList<>();

@@ -17,8 +17,7 @@ public class Teacher {
     
     public Teacher(){}
 
-    public Teacher(int id_teacher, String surname, String name, String patronymic) {
-        this.id_teacher = id_teacher;
+    public Teacher(String surname, String name, String patronymic) {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
@@ -57,4 +56,8 @@ public class Teacher {
         this.patronymic = patronymic;
     }
     
+    @Override
+    public String toString(){
+        return name + " " + surname + " " + patronymic;
+    } 
 }

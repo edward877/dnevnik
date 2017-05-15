@@ -10,13 +10,15 @@ package ModelDB;
  * @author Admin
  */
 
-public class Class {
+public class Clas {
     private int id_class;
     private String name;
 
-    public Class(int id_class, String name) {
-        this.id_class = id_class;
+    public Clas(String name) {
         this.name = name;
+    }
+
+    public Clas() {
     }
 
     public int getId_class() {
@@ -35,5 +37,8 @@ public class Class {
         this.name = name;
     }
     
-    
+     @Override
+    public String toString(){
+        return name;
+    } 
 }

@@ -16,12 +16,14 @@ public class Pupil {
     private String surname;
     private String patronymic;
 
-    public Pupil(int id_pupil, int id_class, String name, String surname, String patronymic) {
-        this.id_pupil = id_pupil;
+    public Pupil(int id_class, String name, String surname, String patronymic) {
         this.id_class = id_class;
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
+    }
+
+    public Pupil() {
     }
 
     public int getId_pupil() {
@@ -64,7 +66,10 @@ public class Pupil {
         this.patronymic = patronymic;
     }
     
-    
+     @Override
+    public String toString(){
+        return name + " " + surname + " " + patronymic;
+    } 
     
     
 }

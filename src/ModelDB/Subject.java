@@ -13,9 +13,11 @@ public class Subject {
     private int id_subject;
     private String name;
 
-    public Subject(int id_subject, String name) {
-        this.id_subject = id_subject;
+    public Subject( String name) {
         this.name = name;
+    }
+
+    public Subject() {
     }
 
     public int getId_subject() {
@@ -34,5 +36,8 @@ public class Subject {
         this.name = name;
     }
     
-    
+     @Override
+    public String toString(){
+        return  name;
+    } 
 }
