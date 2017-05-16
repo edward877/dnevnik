@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package query;
+package Queries;
 
 
 import java.sql.ResultSet;
@@ -23,8 +23,8 @@ public class Queries {
         this.mcon = mcon;
     }
 
-    public List<Zapros1> queryFirst() throws SQLException{
-        List<Zapros1> list;
+    public List<Query1> queryFirst() throws SQLException{
+        List<Query1> list;
         try {
             list = new ArrayList<>();
             String query = "Select c.name,  p.surname  " +
@@ -33,7 +33,7 @@ public class Queries {
                     "Where c.id_class = 1;";
             ResultSet rs = mcon.executeQuery(query);
             while(rs.next()){
-                Zapros1 z = new Zapros1();
+                Query1 z = new Query1();
                 z.setClassName(rs.getString("name"));
                 z.setSurname(rs.getString("surname"));
                 list.add(z);

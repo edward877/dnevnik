@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package query;
+package Queries;
 
 /**
  *
  * @author Admin
  */
-public class Zapros1 {
+public class Query1 {
     
     String className;
     String name;
     String surname;
 
-    public Zapros1() {
+    public Query1() {
     }
 
     public String getClassName() {

@@ -19,7 +19,7 @@ import ModelDB.Subject;
 import ModelDB.Teacher;
 import java.sql.Date;
 import javax.swing.JOptionPane;
-import query.QPanel;
+import Queries.QPanel;
 
 /**
  *

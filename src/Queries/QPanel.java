@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package query;
+package Queries;
 
 import Connection.ManageConnect;
 import java.sql.SQLException;
@@ -18,8 +18,8 @@ import javax.swing.table.DefaultTableModel;
 public class QPanel extends javax.swing.JFrame {
     ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
-    Zapros1 zapros1;
-    private List<Zapros1> zaproses1;
+    Query1 zapros1;
+    private List<Query1> zaproses1;
     
     Queries queires;
   
@@ -83,7 +83,7 @@ public class QPanel extends javax.swing.JFrame {
         tableModel.setColumnCount(0);
         tableModel.addColumn("названия класса");
         tableModel.addColumn("фамилия ученика");
-        for (Zapros1 e : zaproses1) {
+        for (Query1 e : zaproses1) {
             tableModel.addRow(new String[]{e.getClassName(), e.getSurname()});
         }
     }
