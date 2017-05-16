@@ -30,7 +30,6 @@ public class ManageConnect {
         connection = DriverManager.getConnection(con.getUrl(), con.getLogin(), con.getPassword());
         statement = connection.createStatement();
         return true;
-
     }
 
     public boolean closeConnection() throws SQLException {
@@ -39,7 +38,6 @@ public class ManageConnect {
             return true;
         }
         return false;
-
     }
 
     public ResultSet executeQuery(String query) throws SQLException {
@@ -47,7 +45,6 @@ public class ManageConnect {
                 return statement.executeQuery(query);
         }
         return null;
-
     }
 
     public int executeUpdate(String query) throws SQLException {

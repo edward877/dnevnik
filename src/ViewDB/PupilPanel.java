@@ -23,21 +23,22 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PupilPanel extends javax.swing.JFrame {
 
-    public static MainPanel MainP;
-    ManageConnect mcon;
+    private MainPanel mainPanel;
+    private ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Pupil> pupils;
     private List<School_Class> classes;
-    PupilDB pupildb;
+    private PupilDB pupildb;
 
-    public PupilPanel(ManageConnect mcon) {
+    public PupilPanel(ManageConnect mcon, MainPanel mainPanel) {
         this.mcon = mcon;
+        this.mainPanel = mainPanel;
         initComponents();
         try {
             jTable1.setModel(tableModel);
             ShowTable();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -199,9 +200,8 @@ public class PupilPanel extends javax.swing.JFrame {
             pupil.setName(jTextField2.getText());
             pupil.setPatronymic(jTextField3.getText());
             pupil.setId_class(classes.get(jComboBox1.getSelectedIndex()).getClassId());
-
             pupildb.add(pupil);
-            MainPanel.MainP.ShowTable();
+            mainPanel.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Ученик добавлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
@@ -218,9 +218,9 @@ public class PupilPanel extends javax.swing.JFrame {
             pupil.setId_class(classes.get(jComboBox1.getSelectedIndex()).getClassId());
 
             pupildb.update(pupil);
-            MainPanel.MainP.ShowTable();
+            mainPanel.ShowTable();
             ShowTable();
-             JOptionPane.showMessageDialog(null, "Ученик обновлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ученик обновлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
@@ -231,9 +231,9 @@ public class PupilPanel extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             pupildb.delete(pupils.get(jTable1.getSelectedRow()));
-            MainPanel.MainP.ShowTable();
+           mainPanel.ShowTable();
             ShowTable();
-             JOptionPane.showMessageDialog(null, "Ученик удален", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ученик удален", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {

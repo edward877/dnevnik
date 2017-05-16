@@ -18,14 +18,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class TeacherPanel extends javax.swing.JFrame {
-
-    ManageConnect mcon;
+    
+    private MainPanel mainPanel;
+    private ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Teacher> teachers;
-    TeacherDB teacherdb;
+    private TeacherDB teacherdb;
 
-    public TeacherPanel(ManageConnect mcon) {
+    public TeacherPanel(ManageConnect mcon, MainPanel mainPanel) {
         this.mcon = mcon;
+        this.mainPanel = mainPanel;
         initComponents();
         try {
             jTable1.setModel(tableModel);
@@ -166,7 +168,7 @@ public class TeacherPanel extends javax.swing.JFrame {
             teacher.setName(jTextField2.getText());
             teacher.setPatronymic(jTextField3.getText());
             teacherdb.update(teacher);
-            MainPanel.MainP.ShowTable();
+            mainPanel.ShowTable();
             ShowTable();
              JOptionPane.showMessageDialog(null, "Учитель обновлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -179,7 +181,7 @@ public class TeacherPanel extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             teacherdb.delete(teachers.get(jTable1.getSelectedRow()));
-            MainPanel.MainP.ShowTable();
+            mainPanel.ShowTable();
             ShowTable();
              JOptionPane.showMessageDialog(null, "Учитель удален", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -196,7 +198,7 @@ public class TeacherPanel extends javax.swing.JFrame {
             teacher.setSurname(jTextField1.getText());
             teacher.setPatronymic(jTextField3.getText());
             teacherdb.add(teacher);
-            MainPanel.MainP.ShowTable();
+            mainPanel.ShowTable();
             ShowTable();
              JOptionPane.showMessageDialog(null, "Добавлен учитель", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {

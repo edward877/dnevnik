@@ -26,16 +26,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MarkPanel extends javax.swing.JFrame {
 
-    ManageConnect mcon;
+    private MainPanel mainPanel;
+    private ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Mark> marks;
     private List<Teacher> teachers;
     private List<Pupil> pupils;
     private List<Subject> subjects;
-    MarkDB markdb;
+    private MarkDB markdb;
 
-    public MarkPanel(ManageConnect mcon) {
+    public MarkPanel(ManageConnect mcon, MainPanel mainPanel) {
         this.mcon = mcon;
+        this.mainPanel = mainPanel;
         initComponents();
         try {
             jTable1.setModel(tableModel);
@@ -224,6 +226,7 @@ public class MarkPanel extends javax.swing.JFrame {
                     Integer.parseInt(jTextField2.getText()) - 1,
                     Integer.parseInt(jTextField1.getText())));
             markdb.add(mark);
+            mainPanel.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Оценка выставлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -236,6 +239,7 @@ public class MarkPanel extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             markdb.delete(marks.get(jTable1.getSelectedRow()));
+             mainPanel.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Оценка удалена", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -276,7 +280,6 @@ public class MarkPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         try {
 
             Mark mark = marks.get(jTable1.getSelectedRow());
@@ -285,6 +288,7 @@ public class MarkPanel extends javax.swing.JFrame {
             mark.setTeacherId(teachers.get(jComboBox3.getSelectedIndex()).getTeacherId());
             mark.setMark(Integer.parseInt(jComboBox5.getSelectedItem().toString()));
             markdb.update(mark);
+             mainPanel.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Оценка обновлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {

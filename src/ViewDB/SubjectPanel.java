@@ -22,8 +22,9 @@ public class SubjectPanel extends javax.swing.JFrame {
     /**
      * Creates new form SubjectDB
      */
-    public SubjectPanel(ManageConnect mcon) {
+    public SubjectPanel(ManageConnect mcon, MainPanel mainPanel) {
         this.mcon = mcon;
+        this.mainPanel = mainPanel;
         initComponents();
         try {
             jTable1.setModel(tableModel);
@@ -33,11 +34,11 @@ public class SubjectPanel extends javax.swing.JFrame {
         }
     }
 
-    public static MainPanel MainP;
-    ManageConnect mcon;
+    private  MainPanel  mainPanel;
+    private ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Subject> subjects;
-    SubjectDB subjectdb;
+    private SubjectDB subjectdb;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,10 +142,10 @@ public class SubjectPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         try {
             Subject teacher = new Subject(jTextField1.getText());
             subjectdb.add(teacher);
+             mainPanel.ShowTable();
             ShowTable();
              JOptionPane.showMessageDialog(null, "Ученик добавлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -159,8 +160,8 @@ public class SubjectPanel extends javax.swing.JFrame {
         try {
             Subject teacher = subjects.get(jTable1.getSelectedRow());
             teacher.setName(jTextField1.getText());
-
             subjectdb.update(teacher);
+             mainPanel.ShowTable();
             ShowTable();
              JOptionPane.showMessageDialog(null, "Ученик обновлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
        } catch (ArrayIndexOutOfBoundsException ex) {
@@ -174,6 +175,7 @@ public class SubjectPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             subjectdb.delete(subjects.get(jTable1.getSelectedRow()));
+             mainPanel.ShowTable();
             ShowTable();
              JOptionPane.showMessageDialog(null, "Ученик удален", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {

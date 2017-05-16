@@ -14,9 +14,11 @@ import Connection.Connect;
 public class ConnectPanel extends javax.swing.JFrame {
 
     private Connect con;
+    private MainPanel mainPanel;
 
-    public ConnectPanel() {
+    public ConnectPanel(MainPanel mainPanel) {
         initComponents();
+        this.mainPanel = mainPanel;
     }
 
     @SuppressWarnings("unchecked")
@@ -149,11 +151,10 @@ public class ConnectPanel extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         con = new Connect(jTextPaneHost.getText(), jTextPanePort.getText(), jTextPaneName.getText(),
                 jTextPaneLogin.getText(), jTextPanePass.getText());
-        MainPanel.MainP.setVisible(true);
-        MainPanel.MainP.openConnect();
+        mainPanel.setVisible(true);
+        mainPanel.openConnect();
         this.dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed

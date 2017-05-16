@@ -26,10 +26,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class HomeworkPanel extends javax.swing.JFrame {
 
-    ManageConnect mcon;
+    private ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Homework> homeworks;
-    HomeworkDB homeworkdb;
+    private HomeworkDB homeworkdb;
     private List<Teacher> teachers;
     private List<School_Class> classes;
     private List<Subject> subjects;
@@ -203,7 +203,7 @@ public class HomeworkPanel extends javax.swing.JFrame {
                     Integer.parseInt(jTextField2.getText()) - 1,
                     Integer.parseInt(jTextField1.getText())));
             homeworkdb.add(homework);
-            MainPanel.MainP.ShowTable();
+       //     MainPanel.MainP.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Домашнее задание добавлено", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -221,7 +221,7 @@ public class HomeworkPanel extends javax.swing.JFrame {
             homework.setTeacherId(teachers.get(jComboBox3.getSelectedIndex()).getTeacherId());
             homework.setHomework(jTextField4.getText());
             homeworkdb.update(homework);
-            MainPanel.MainP.ShowTable();
+     //       MainPanel.MainP.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Домашнее задание обновлено", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -234,7 +234,7 @@ public class HomeworkPanel extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             homeworkdb.delete(homeworks.get(jTable1.getSelectedRow()));
-            MainPanel.MainP.ShowTable();
+       //     MainPanel.MainP.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Домашнее задание удалено", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {

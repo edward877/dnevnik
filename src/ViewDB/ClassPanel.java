@@ -10,8 +10,6 @@ import ControllerDB.ClassDB;
 import ModelDB.School_Class;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,8 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ClassPanel extends javax.swing.JFrame {
 
-    public static MainPanel MainP;
-    ManageConnect mcon;
+    private MainPanel mainPanel;
+    private ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<School_Class> classes;
     ClassDB classdb;
@@ -30,9 +28,10 @@ public class ClassPanel extends javax.swing.JFrame {
     /**
      * Creates new form ClassPanel
      */
-    public ClassPanel(ManageConnect mcon) {
+    public ClassPanel(ManageConnect mcon,  MainPanel mainPanel) {
         initComponents();
         this.mcon = mcon;
+        this.mainPanel = mainPanel;
         try {
             jTable1.setModel(tableModel);
             ShowTable();
@@ -139,8 +138,8 @@ public class ClassPanel extends javax.swing.JFrame {
         try {
             School_Class clas = classes.get(jTable1.getSelectedRow());
             clas.setName(jTextField1.getText());
-
             classdb.update(clas);
+            mainPanel.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Класс обновлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -153,6 +152,7 @@ public class ClassPanel extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             classdb.delete(classes.get(jTable1.getSelectedRow()));
+            mainPanel.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Класс удален", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -171,6 +171,7 @@ public class ClassPanel extends javax.swing.JFrame {
         try {
             School_Class teacher = new School_Class(jTextField1.getText());
             classdb.add(teacher);
+            mainPanel.ShowTable();
             ShowTable();
             JOptionPane.showMessageDialog(null, "Класс добавлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {

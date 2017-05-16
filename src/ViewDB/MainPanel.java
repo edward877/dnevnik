@@ -27,15 +27,14 @@ import Queries.QPanel;
  */
 public class MainPanel extends javax.swing.JFrame {
 
-    private ConnectPanel cntp = new ConnectPanel();
-    public static MainPanel MainP;
-    ManageConnect mcon;
+    private ConnectPanel cntp;
+    private ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Mark> marks;
     private List<Teacher> teachers;
     private List<Pupil> pupils;
     private List<Subject> subjects;
-    MarkDB markdb;
+    private MarkDB markdb;
 
     public MainPanel() {
         initComponents();
@@ -324,19 +323,19 @@ public class MainPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        TeacherPanel tpanel = new TeacherPanel(mcon);
+        TeacherPanel tpanel = new TeacherPanel(mcon, (MainPanel) this);
         tpanel.setVisible(true);
         tpanel.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        SubjectPanel tsubject = new SubjectPanel(mcon);
+        SubjectPanel tsubject = new SubjectPanel(mcon, (MainPanel) this);
         tsubject.setVisible(true);
         tsubject.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ClassPanel tclass = new ClassPanel(mcon);
+        ClassPanel tclass = new ClassPanel(mcon, (MainPanel) this);
         tclass.setVisible(true);
         tclass.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -348,19 +347,19 @@ public class MainPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        PupilPanel tpupil = new PupilPanel(mcon);
+        PupilPanel tpupil = new PupilPanel(mcon,(MainPanel) this);
         tpupil.setVisible(true);
         tpupil.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        MarkPanel tmark = new MarkPanel(mcon);
+        MarkPanel tmark = new MarkPanel(mcon, (MainPanel) this);
         tmark.setVisible(true);
         tmark.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        MainPanel.MainP.setVisible(false);
+        this.setVisible(false);
         cntp.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem7ActionPerformed
@@ -460,8 +459,6 @@ public class MainPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MousePressed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-
         QPanel q = new QPanel(mcon);
         q.setVisible(true);
         q.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -503,16 +500,16 @@ public class MainPanel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MainP = new MainPanel();
-                MainP.setVisible(false);
-                MainP.setExtendedState(MAXIMIZED_BOTH);
+                MainPanel main = new MainPanel();
+                main.setVisible(false);
+                main.setExtendedState(MAXIMIZED_BOTH);
             }
         });
 
     }
 
     private void openConnectPanel() {
-        cntp = new ConnectPanel();
+        cntp = new ConnectPanel((MainPanel) this);
         cntp.setVisible(true);
     }
 
