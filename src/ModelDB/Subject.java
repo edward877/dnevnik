@@ -10,7 +10,7 @@ package ModelDB;
  * @author Admin
  */
 public class Subject {
-    private int id_subject;
+    private int subjectId;
     private String name;
 
     public Subject( String name) {
@@ -20,16 +20,16 @@ public class Subject {
     public Subject() {
     }
 
-    public int getId_subject() {
-        return id_subject;
+    public int getSubjectId() {
+        return subjectId;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setId_subject(int id_subject) {
-        this.id_subject = id_subject;
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
     }
 
     public void setName(String name) {

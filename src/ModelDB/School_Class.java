@@ -10,27 +10,27 @@ package ModelDB;
  * @author Admin
  */
 
-public class Clas {
-    private int id_class;
+public class School_Class {
+    private int classId;
     private String name;
 
-    public Clas(String name) {
+    public School_Class(String name) {
         this.name = name;
     }
 
-    public Clas() {
+    public School_Class() {
     }
 
-    public int getId_class() {
-        return id_class;
+    public int getClassId() {
+        return classId;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setId_class(int id_class) {
-        this.id_class = id_class;
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
     public void setName(String name) {

@@ -13,39 +13,38 @@ import java.sql.Date;
  */
 public class Homework {
     
-    private int id_homework;
-    private int id_class;
-    private int id_teacher;
-    private int id_subject;
+    private int homeworkId;
+    private int classId;
+    private int teacherId;
+    private int subjectId;
     private String homework;
     private Date date;
 
     public Homework(int id_class, int id_teacher, int id_subject, String homework, Date date) {
-        this.id_class = id_class;
-        this.id_teacher = id_teacher;
-        this.id_subject = id_subject;
+        this.classId = id_class;
+        this.teacherId = id_teacher;
+        this.subjectId = id_subject;
         this.homework = homework;
         this.date = date;
     }
 
     public Homework() {
-        
     }
 
-    public int getId_homework() {
-        return id_homework;
+    public int getHomeworkId() {
+        return homeworkId;
     }
 
-    public int getId_class() {
-        return id_class;
+    public int getClassId() {
+        return classId;
     }
 
-    public int getId_teacher() {
-        return id_teacher;
+    public int getTeacherId() {
+        return teacherId;
     }
 
-    public int getId_subject() {
-        return id_subject;
+    public int getSubjectId() {
+        return subjectId;
     }
 
     public String getHomework() {
@@ -56,20 +55,20 @@ public class Homework {
         return date;
     }
 
-    public void setId_homework(int id_homework) {
-        this.id_homework = id_homework;
+    public void setHomeworkId(int homeworkId) {
+        this.homeworkId = homeworkId;
     }
 
-    public void setId_class(int id_class) {
-        this.id_class = id_class;
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
-    public void setId_teacher(int id_teacher) {
-        this.id_teacher = id_teacher;
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public void setId_subject(int id_subject) {
-        this.id_subject = id_subject;
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
     }
 
     public void setHomework(String homework) {

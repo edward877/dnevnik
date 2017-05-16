@@ -10,8 +10,6 @@ import ControllerDB.SubjectDB;
 import ModelDB.Subject;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,14 +29,14 @@ public class SubjectPanel extends javax.swing.JFrame {
             jTable1.setModel(tableModel);
             ShowTable();
         } catch (SQLException ex) {
-            Logger.getLogger(TeacherPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static MainPanel MainP;
     ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
-    private List<Subject> subject;
+    private List<Subject> subjects;
     SubjectDB subjectdb;
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,7 +136,7 @@ public class SubjectPanel extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        Subject teacher = subject.get(jTable1.getSelectedRow());
+        Subject teacher = subjects.get(jTable1.getSelectedRow());
         jTextField1.setText(teacher.getName());
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -153,15 +151,13 @@ public class SubjectPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            Subject teacher = subject.get(jTable1.getSelectedRow());
+            Subject teacher = subjects.get(jTable1.getSelectedRow());
             teacher.setName(jTextField1.getText());
 
             subjectdb.update(teacher);
@@ -171,38 +167,34 @@ public class SubjectPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-            subjectdb.delete(subject.get(jTable1.getSelectedRow()));
+            subjectdb.delete(subjects.get(jTable1.getSelectedRow()));
             ShowTable();
              JOptionPane.showMessageDialog(null, "Ученик удален", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
  private void ShowTable() throws SQLException {
 
         subjectdb = new SubjectDB(mcon);
-        subject = subjectdb.all();
+        subjects = subjectdb.all();
         
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
         tableModel.addColumn("id_subject");
         tableModel.addColumn("name");     
 
-        for (Subject e : subject) {
-            tableModel.addRow(new String[]{e.getId_subject() + "", e.getName()});
+        for (Subject e : subjects) {
+            tableModel.addRow(new String[]{e.getSubjectId() + "", e.getName()});
         }
     }
  

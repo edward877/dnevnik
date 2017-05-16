@@ -5,7 +5,6 @@
  */
 package ViewDB;
 
-import Connection.Connect;
 import Connection.ManageConnect;
 import ControllerDB.MarkDB;
 import ControllerDB.PupilDB;
@@ -18,8 +17,6 @@ import ModelDB.Teacher;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,17 +31,17 @@ public class MarkPanel extends javax.swing.JFrame {
     private List<Mark> marks;
     private List<Teacher> teachers;
     private List<Pupil> pupils;
-    private List<Subject> subject;
+    private List<Subject> subjects;
     MarkDB markdb;
 
     public MarkPanel(ManageConnect mcon) {
         this.mcon = mcon;
         initComponents();
         try {
-             jTable1.setModel(tableModel);
+            jTable1.setModel(tableModel);
             ShowTable();
         } catch (SQLException ex) {
-            Logger.getLogger(MarkPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -219,32 +216,24 @@ public class MarkPanel extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             Mark mark = new Mark();
-            mark.setId_pupil(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
-
-            mark.setId_subject(subject.get(jComboBox4.getSelectedIndex()).getId_subject());
-
-            mark.setId_teacher(teachers.get(jComboBox3.getSelectedIndex()).getId_teacher());
-
+            mark.setPupilId(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
+            mark.setSubjectId(subjects.get(jComboBox4.getSelectedIndex()).getSubjectId());
+            mark.setTeacherId(teachers.get(jComboBox3.getSelectedIndex()).getTeacherId());
             mark.setMark(Integer.parseInt(jComboBox5.getSelectedItem().toString()));
-
             mark.setDate(new Date(Integer.parseInt(jTextField3.getText()) - 1900,
                     Integer.parseInt(jTextField2.getText()) - 1,
                     Integer.parseInt(jTextField1.getText())));
-
             markdb.add(mark);
             ShowTable();
-             JOptionPane.showMessageDialog(null, "Оценка выставлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Оценка выставлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
         try {
             markdb.delete(marks.get(jTable1.getSelectedRow()));
             ShowTable();
@@ -253,57 +242,48 @@ public class MarkPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
-         Mark mark = marks.get(jTable1.getSelectedRow());
+        Mark mark = marks.get(jTable1.getSelectedRow());
         try {
             for (Pupil p : pupils) {
-                if (p.getId_pupil() == mark.getId_pupil()) {
+                if (p.getId_pupil() == mark.getPupilId()) {
                     jComboBox2.setSelectedItem(p.toString());
                     break;
                 }
             }
             for (Teacher t : teachers) {
-                if (t.getId_teacher() == mark.getId_teacher()) {
+                if (t.getTeacherId() == mark.getTeacherId()) {
                     jComboBox3.setSelectedItem(t.toString());
                     break;
                 }
             }
-
-            for (Subject s : subject) {
-                if (s.getId_subject() == mark.getId_subject()) {
+            for (Subject s : subjects) {
+                if (s.getSubjectId() == mark.getSubjectId()) {
                     jComboBox4.setSelectedItem(s.getName());
                     break;
                 }
             }
-
             jComboBox5.setSelectedItem(mark.getMark() + "");
 
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTable1MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         try {
-            
+        try {
+
             Mark mark = marks.get(jTable1.getSelectedRow());
-            
-            mark.setId_pupil(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
-
-            mark.setId_subject(subject.get(jComboBox4.getSelectedIndex()).getId_subject());
-
-            mark.setId_teacher(teachers.get(jComboBox3.getSelectedIndex()).getId_teacher());
-
+            mark.setPupilId(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
+            mark.setSubjectId(subjects.get(jComboBox4.getSelectedIndex()).getSubjectId());
+            mark.setTeacherId(teachers.get(jComboBox3.getSelectedIndex()).getTeacherId());
             mark.setMark(Integer.parseInt(jComboBox5.getSelectedItem().toString()));
-
             markdb.update(mark);
             ShowTable();
             JOptionPane.showMessageDialog(null, "Оценка обновлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -311,13 +291,10 @@ public class MarkPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
-      public void ShowTable() throws SQLException {
+    private void ShowTable() throws SQLException {
 
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
@@ -329,52 +306,46 @@ public class MarkPanel extends javax.swing.JFrame {
         tableModel.addColumn("дата");
 
         markdb = new MarkDB(mcon);
-        TeacherDB tdb = new TeacherDB(mcon);
-        PupilDB pdb = new PupilDB(mcon);
-        SubjectDB sdb = new SubjectDB(mcon);
-        Teacher t;
-        Pupil p;
+        TeacherDB teacherDB = new TeacherDB(mcon);
+        PupilDB pupilDB = new PupilDB(mcon);
+        SubjectDB subjectDB = new SubjectDB(mcon);
+        Teacher teacher;
+        Pupil pupil;
 
         marks = markdb.all();
         for (Mark e : marks) {
-            t = tdb.one(e.getId_teacher());
-            p = pdb.one(e.getId_pupil());
+            teacher = teacherDB.one(e.getTeacherId());
+            pupil = pupilDB.one(e.getPupilId());
 
             tableModel.addRow(new String[]{
-                e.getId_mark() + "",
-                p.getName() + " " + p.getSurname() + " " + p.getPatronymic(),
-                t.getName() + " " + t.getSurname() + " " + t.getPatronymic(),
-                sdb.one(e.getId_subject()).getName(),
+                e.getMarkId() + "",
+                pupil.getName() + " " + pupil.getSurname() + " " + pupil.getPatronymic(),
+                teacher.getName() + " " + teacher.getSurname() + " " + teacher.getPatronymic(),
+                subjectDB.one(e.getSubjectId()).getName(),
                 e.getMark() + "", e.getDate() + ""});
         }
-
-        WorkWithComboBox(tdb, pdb, sdb);
-
+        WorkWithComboBox(teacherDB, pupilDB, subjectDB);
     }
 
     private void WorkWithComboBox(TeacherDB tdb, PupilDB pdb, SubjectDB sdb) throws SQLException {
         jComboBox2.removeAllItems();
         jComboBox3.removeAllItems();
         jComboBox4.removeAllItems();
-
         teachers = tdb.all();
         for (Teacher e : teachers) {
             jComboBox3.addItem(e.toString());
         }
-
         pupils = pdb.all();
         for (Pupil e : pupils) {
             jComboBox2.addItem(e.toString());
         }
-
-        subject = sdb.all();
-        for (Subject e : subject) {
+        subjects = sdb.all();
+        for (Subject e : subjects) {
             jComboBox4.addItem(e.toString());
         }
     }
 
 
-   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

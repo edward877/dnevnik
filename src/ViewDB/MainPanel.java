@@ -5,7 +5,6 @@
  */
 package ViewDB;
 
-import Connection.Connect;
 import Connection.ManageConnect;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,9 +18,8 @@ import ModelDB.Pupil;
 import ModelDB.Subject;
 import ModelDB.Teacher;
 import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import query.QPanel;
 
 /**
  *
@@ -30,15 +28,13 @@ import javax.swing.JOptionPane;
 public class MainPanel extends javax.swing.JFrame {
 
     private ConnectPanel cntp = new ConnectPanel();
-    private Connect con;
     public static MainPanel MainP;
     ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Mark> marks;
     private List<Teacher> teachers;
     private List<Pupil> pupils;
-    private List<Subject> subject;
-
+    private List<Subject> subjects;
     MarkDB markdb;
 
     public MainPanel() {
@@ -68,6 +64,7 @@ public class MainPanel extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -134,6 +131,13 @@ public class MainPanel extends javax.swing.JFrame {
         jLabel4.setText("оценка");
 
         jLabel5.setText("мес. день. год");
+
+        jButton4.setText("zapros");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("БД");
 
@@ -225,12 +229,8 @@ public class MainPanel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabelConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
@@ -266,9 +266,14 @@ public class MainPanel extends javax.swing.JFrame {
                                             .addComponent(jLabel4))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -276,7 +281,7 @@ public class MainPanel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -286,7 +291,8 @@ public class MainPanel extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                            .addComponent(jLabel1)
+                            .addComponent(jButton4))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -301,7 +307,7 @@ public class MainPanel extends javax.swing.JFrame {
                     .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jButton3))
-                .addGap(19, 19, 19)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
@@ -311,7 +317,7 @@ public class MainPanel extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -364,8 +370,12 @@ public class MainPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        if (mcon.closeConnection()) {
-            jLabelConnect.setText("Connection closed");
+        try {
+            if (mcon.closeConnection()) {
+                jLabelConnect.setText("Connection closed");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
@@ -373,25 +383,18 @@ public class MainPanel extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             Mark mark = new Mark();
-            mark.setId_pupil(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
-
-            mark.setId_subject(subject.get(jComboBox4.getSelectedIndex()).getId_subject());
-
-            mark.setId_teacher(teachers.get(jComboBox3.getSelectedIndex()).getId_teacher());
-
+            mark.setPupilId(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
+            mark.setSubjectId(subjects.get(jComboBox4.getSelectedIndex()).getSubjectId());
+            mark.setTeacherId(teachers.get(jComboBox3.getSelectedIndex()).getTeacherId());
             mark.setMark(Integer.parseInt(jComboBox5.getSelectedItem().toString()));
-
             mark.setDate(new Date(Integer.parseInt(jTextField3.getText()) - 1900,
                     Integer.parseInt(jTextField2.getText()) - 1,
                     Integer.parseInt(jTextField1.getText())));
-
             markdb.add(mark);
             ShowTable();
             JOptionPane.showMessageDialog(null, "Оценка выставлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -400,13 +403,11 @@ public class MainPanel extends javax.swing.JFrame {
         try {
             markdb.delete(marks.get(jTable1.getSelectedRow()));
             ShowTable();
-             JOptionPane.showMessageDialog(null, "Оценка удалена", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Оценка удалена", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -414,24 +415,17 @@ public class MainPanel extends javax.swing.JFrame {
         try {
 
             Mark mark = marks.get(jTable1.getSelectedRow());
-
-            mark.setId_pupil(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
-
-            mark.setId_subject(subject.get(jComboBox4.getSelectedIndex()).getId_subject());
-
-            mark.setId_teacher(teachers.get(jComboBox3.getSelectedIndex()).getId_teacher());
-
+            mark.setPupilId(pupils.get(jComboBox2.getSelectedIndex()).getId_pupil());
+            mark.setSubjectId(subjects.get(jComboBox4.getSelectedIndex()).getSubjectId());
+            mark.setTeacherId(teachers.get(jComboBox3.getSelectedIndex()).getTeacherId());
             mark.setMark(Integer.parseInt(jComboBox5.getSelectedItem().toString()));
-
             markdb.update(mark);
             ShowTable();
-             JOptionPane.showMessageDialog(null, "Оценка обновлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Оценка обновлена", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -439,34 +433,40 @@ public class MainPanel extends javax.swing.JFrame {
         Mark mark = marks.get(jTable1.getSelectedRow());
         try {
             for (Pupil p : pupils) {
-                if (p.getId_pupil() == mark.getId_pupil()) {
+                if (p.getId_pupil() == mark.getPupilId()) {
                     jComboBox2.setSelectedItem(p.toString());
                     break;
                 }
             }
             for (Teacher t : teachers) {
-                if (t.getId_teacher() == mark.getId_teacher()) {
+                if (t.getTeacherId() == mark.getTeacherId()) {
                     jComboBox3.setSelectedItem(t.toString());
                     break;
                 }
             }
-
-            for (Subject s : subject) {
-                if (s.getId_subject() == mark.getId_subject()) {
+            for (Subject s : subjects) {
+                if (s.getSubjectId() == mark.getSubjectId()) {
                     jComboBox4.setSelectedItem(s.getName());
                     break;
                 }
             }
-
             jComboBox5.setSelectedItem(mark.getMark() + "");
-
-       }catch (ArrayIndexOutOfBoundsException ex) {
+        } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
-       }catch (Exception ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jTable1MousePressed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+
+        QPanel q = new QPanel(mcon);
+        q.setVisible(true);
+        q.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -503,11 +503,9 @@ public class MainPanel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
                 MainP = new MainPanel();
                 MainP.setVisible(false);
                 MainP.setExtendedState(MAXIMIZED_BOTH);
-
             }
         });
 
@@ -519,18 +517,18 @@ public class MainPanel extends javax.swing.JFrame {
     }
 
     public void openConnect() {
-        con = cntp.getCon();
-        mcon = new ManageConnect(con);
-        if (mcon.openConnect()) {
-            jLabelConnect.setText("good connection");
-        } else {
-            jLabelConnect.setText("no connection");
-        }
-
+        mcon = new ManageConnect(cntp.getCon());
         jTable1.setModel(tableModel);
         try {
+            if (mcon.openConnect()) {
+                jLabelConnect.setText("good connection");
+            } else {
+                jLabelConnect.setText("no connection");
+            }
             ShowTable();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -548,26 +546,25 @@ public class MainPanel extends javax.swing.JFrame {
         tableModel.addColumn("дата");
 
         markdb = new MarkDB(mcon);
-        TeacherDB tdb = new TeacherDB(mcon);
-        PupilDB pdb = new PupilDB(mcon);
-        SubjectDB sdb = new SubjectDB(mcon);
-        Teacher t;
-        Pupil p;
-
+        TeacherDB teacherDB = new TeacherDB(mcon);
+        PupilDB pupilDB = new PupilDB(mcon);
+        SubjectDB subjectDB = new SubjectDB(mcon);
+        Teacher teacher;
+        Pupil pupil;
+        
         marks = markdb.all();
         for (Mark e : marks) {
-            t = tdb.one(e.getId_teacher());
-            p = pdb.one(e.getId_pupil());
-
+            teacher = teacherDB.one(e.getTeacherId());
+            pupil = pupilDB.one(e.getPupilId());
             tableModel.addRow(new String[]{
-                e.getId_mark() + "",
-                p.getName() + " " + p.getSurname() + " " + p.getPatronymic(),
-                t.getName() + " " + t.getSurname() + " " + t.getPatronymic(),
-                sdb.one(e.getId_subject()).getName(),
+                e.getMarkId() + "",
+                pupil.getName() + " " + pupil.getSurname() + " " + pupil.getPatronymic(),
+                teacher.getName() + " " + teacher.getSurname() + " " + teacher.getPatronymic(),
+                subjectDB.one(e.getSubjectId()).getName(),
                 e.getMark() + "", e.getDate() + ""});
         }
         try {
-            WorkWithComboBox(tdb, pdb, sdb);
+            WorkWithComboBox(teacherDB, pupilDB, subjectDB);
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "нет соединения", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -578,19 +575,16 @@ public class MainPanel extends javax.swing.JFrame {
         jComboBox2.removeAllItems();
         jComboBox3.removeAllItems();
         jComboBox4.removeAllItems();
-
         teachers = tdb.all();
         for (Teacher e : teachers) {
             jComboBox3.addItem(e.toString());
         }
-
         pupils = pdb.all();
         for (Pupil e : pupils) {
             jComboBox2.addItem(e.toString());
         }
-
-        subject = sdb.all();
-        for (Subject e : subject) {
+        subjects = sdb.all();
+        for (Subject e : subjects) {
             jComboBox4.addItem(e.toString());
         }
     }
@@ -600,6 +594,7 @@ public class MainPanel extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;

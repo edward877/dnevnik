@@ -26,70 +26,45 @@ public class SubjectDB {
     }
 
     public void add(Subject subject) throws SQLException {
-        try {
-            Formatter f = new Formatter();
-            f.format("insert into subject values ( nextval('seq_subject'), '%s');",
-                    subject.getName());
-            mConnect.executeUpdate(f.toString());
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        Formatter f = new Formatter();
+        f.format("insert into subject values ( nextval('seq_subject'), '%s');",
+                subject.getName());
+        mConnect.executeUpdate(f.toString());
     }
 
     public void update(Subject subject) throws SQLException {
-        try {
-            Formatter f = new Formatter();
-            f.format("update subject set name = '%s' where  id_subject =  %d;",
-                    subject.getName(), subject.getId_subject());
-
-            mConnect.executeUpdate(f.toString());
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        Formatter f = new Formatter();
+        f.format("update subject set name = '%s' where  id_subject =  %d;",
+                subject.getName(), subject.getSubjectId());
+        mConnect.executeUpdate(f.toString());
     }
 
     public void delete(Subject subject) throws SQLException {
-        try {
-            String query = "delete from subject where id_subject = " + subject.getId_subject();
-            mConnect.executeUpdate(query);
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        String query = "delete from subject where id_subject = " + subject.getSubjectId();
+        mConnect.executeUpdate(query);
     }
 
-    List<Subject> entities = null;
-
     public List<Subject> all() throws SQLException {
-        try {
-            entities = new ArrayList<>();
-
-            ResultSet rs = mConnect.executeQuery("select * from subject");
-            while (rs.next()) {
-                Subject entity = new Subject();
-                entity.setId_subject(rs.getInt("id_subject"));
-                entity.setName(rs.getString("name"));
-                entities.add(entity);
-            }
-        } catch (Exception ex) {
-            throw ex;
+        List<Subject> subjects = new ArrayList<>();
+        ResultSet rs = mConnect.executeQuery("select * from subject");
+        while (rs.next()) {
+            Subject subject = new Subject();
+            subject.setSubjectId(rs.getInt("id_subject"));
+            subject.setName(rs.getString("name"));
+            subjects.add(subject);
         }
-        return entities;
+        return subjects;
     }
 
     public Subject one(int id) throws SQLException {
-        Subject one = new Subject();
-        try {
-            Formatter f = new Formatter();
-            f.format("select * from subject where id_subject = '%d'", id);
-            ResultSet rs = mConnect.executeQuery(f.toString());
+        Subject subject = new Subject();
+        Formatter f = new Formatter();
+        f.format("select * from subject where id_subject = '%d'", id);
+        ResultSet rs = mConnect.executeQuery(f.toString());
 
-            rs.next();
-            one.setId_subject(rs.getInt("id_subject"));
-            one.setName(rs.getString("name"));
-
-        } catch (Exception ex) {
-            throw ex;
-        }
-        return one;
+        rs.next();
+        subject.setSubjectId(rs.getInt("id_subject"));
+        subject.setName(rs.getString("name"));
+        return subject;
     }
 }

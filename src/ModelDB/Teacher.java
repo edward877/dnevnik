@@ -10,7 +10,7 @@ package ModelDB;
  * @author Admin
  */
 public class Teacher {
-    private int id_teacher;
+    private int teacherId;
     private String name;
     private String surname;
     private String patronymic;
@@ -24,8 +24,8 @@ public class Teacher {
     }
 
     
-    public int getId_teacher() {
-        return id_teacher;
+    public int getTeacherId() {
+        return teacherId;
     }
 
     public String getName() {
@@ -40,8 +40,8 @@ public class Teacher {
         return patronymic;
     }
 
-    public void setId_teacher(int id_teacher) {
-        this.id_teacher = id_teacher;
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 
     public void setName(String name) {

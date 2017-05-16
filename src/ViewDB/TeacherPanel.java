@@ -10,8 +10,6 @@ import ControllerDB.TeacherDB;
 import ModelDB.Teacher;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,8 +32,6 @@ public class TeacherPanel extends javax.swing.JFrame {
             ShowTable();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -164,7 +160,6 @@ public class TeacherPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         try {
             Teacher teacher = teachers.get(jTable1.getSelectedRow());
             teacher.setSurname(jTextField1.getText());
@@ -178,13 +173,10 @@ public class TeacherPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
         try {
             teacherdb.delete(teachers.get(jTable1.getSelectedRow()));
             MainPanel.MainP.ShowTable();
@@ -194,13 +186,10 @@ public class TeacherPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         try {
             Teacher teacher = new Teacher();
             teacher.setName(jTextField2.getText());
@@ -212,13 +201,10 @@ public class TeacherPanel extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "Добавлен учитель", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
         Teacher teacher = teachers.get(jTable1.getSelectedRow());
         jTextField1.setText(teacher.getSurname());
         jTextField2.setText(teacher.getName());
@@ -230,19 +216,16 @@ public class TeacherPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void ShowTable() throws SQLException {
-
         teacherdb = new TeacherDB(mcon);
         teachers = teacherdb.all();
-
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
         tableModel.addColumn("id_teacher");
         tableModel.addColumn("surname");
         tableModel.addColumn("name");
         tableModel.addColumn("patronymic");
-
         for (Teacher e : teachers) {
-            tableModel.addRow(new String[]{e.getId_teacher() + "", e.getSurname(), e.getName(), e.getPatronymic()});
+            tableModel.addRow(new String[]{e.getTeacherId() + "", e.getSurname(), e.getName(), e.getPatronymic()});
         }
     }
 

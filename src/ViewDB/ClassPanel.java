@@ -6,8 +6,8 @@
 package ViewDB;
 
 import Connection.ManageConnect;
-import ControllerDB. ClassDB;
-import ModelDB. Clas;
+import ControllerDB.ClassDB;
+import ModelDB.School_Class;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,12 +20,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class ClassPanel extends javax.swing.JFrame {
-    
-     public static MainPanel MainP;
+
+    public static MainPanel MainP;
     ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
-    private List<Clas> classes;
+    private List<School_Class> classes;
     ClassDB classdb;
+
     /**
      * Creates new form ClassPanel
      */
@@ -36,7 +37,7 @@ public class ClassPanel extends javax.swing.JFrame {
             jTable1.setModel(tableModel);
             ShowTable();
         } catch (SQLException ex) {
-            Logger.getLogger(TeacherPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -96,19 +97,21 @@ public class ClassPanel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(40, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,9 +136,8 @@ public class ClassPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         try {
-            Clas clas = classes.get(jTable1.getSelectedRow());
+            School_Class clas = classes.get(jTable1.getSelectedRow());
             clas.setName(jTextField1.getText());
 
             classdb.update(clas);
@@ -145,13 +147,10 @@ public class ClassPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
         try {
             classdb.delete(classes.get(jTable1.getSelectedRow()));
             ShowTable();
@@ -160,46 +159,37 @@ public class ClassPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        Clas clas = classes.get(jTable1.getSelectedRow());
-         jTextField1.setText(clas.getName());
+        School_Class clas = classes.get(jTable1.getSelectedRow());
+        jTextField1.setText(clas.getName());
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
         try {
-            Clas teacher = new Clas(jTextField1.getText());
+            School_Class teacher = new School_Class(jTextField1.getText());
             classdb.add(teacher);
             ShowTable();
-             JOptionPane.showMessageDialog(null, "Класс добавлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Класс добавлен", "INFO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-     private void ShowTable() throws SQLException {
-
+    private void ShowTable() throws SQLException {
         classdb = new ClassDB(mcon);
-        
         classes = classdb.all();
-        
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
         tableModel.addColumn("id_class");
-        tableModel.addColumn("name");    
+        tableModel.addColumn("name");
 
-        for (Clas e : classes) {
-            tableModel.addRow(new String[]{e.getId_class() + "", e.getName()});
+        for (School_Class e : classes) {
+            tableModel.addRow(new String[]{e.getClassId() + "", e.getName()});
         }
     }
 

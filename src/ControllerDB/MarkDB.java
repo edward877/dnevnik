@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import ModelDB.Mark;
-import java.sql.Date;
 import java.util.Formatter;
 
 /**
@@ -27,58 +26,38 @@ public class MarkDB {
     }
 
     public void add(Mark mark) throws SQLException {
-        try {
-            Formatter f = new Formatter();
-            f.format("insert into mark values ( nextval('seq_mark'), %d, %d, %d, %d, '"+mark.getDate() + "')" ,
-                    mark.getId_pupil(), mark.getId_teacher(), mark.getId_subject(),mark.getMark(),mark.getDate());
-            
-            mConnect.executeUpdate(f.toString());
-
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        Formatter f = new Formatter();
+        f.format("insert into mark values ( nextval('seq_mark'), %d, %d, %d, %d, '" + mark.getDate() + "')",
+                mark.getPupilId(), mark.getTeacherId(), mark.getSubjectId(), mark.getMark(), mark.getDate());
+        mConnect.executeUpdate(f.toString());
     }
 
     public void update(Mark mark) throws SQLException {
-        try {
-            Formatter f = new Formatter();
-            f.format("update mark set  id_pupil = %d,id_teacher = %d, id_subject = %d, mark = %d, date = '" + mark.getDate()+"'  where id_mark = %d;",
-                    mark.getId_pupil(), mark.getId_teacher(), mark.getId_subject(),mark.getMark(), mark.getId_mark());
-            
-            mConnect.executeUpdate(f.toString());
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        Formatter f = new Formatter();
+        f.format("update mark set  id_pupil = %d,id_teacher = %d, id_subject = %d, mark = %d, date = '" + mark.getDate() + "'  where id_mark = %d;",
+                mark.getPupilId(), mark.getTeacherId(), mark.getSubjectId(), mark.getMark(), mark.getMarkId());
+        mConnect.executeUpdate(f.toString());
     }
 
     public void delete(Mark mark) throws SQLException {
-        try {
-            String query = "delete from mark where id_mark = " + mark.getId_mark();
-            mConnect.executeUpdate(query);
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        String query = "delete from mark where id_mark = " + mark.getMarkId();
+        mConnect.executeUpdate(query);
     }
 
-    List<Mark> entities = null;
-
-    public List<Mark> all() {
-        try {
-            entities = new ArrayList<>();
-            ResultSet rs = mConnect.executeQuery("select * from mark");
-            while (rs.next()) {
-                Mark entity = new Mark();
-                entity.setId_mark(rs.getInt("id_mark"));
-                entity.setId_pupil(rs.getInt("id_pupil"));
-                entity.setId_teacher(rs.getInt("id_teacher"));
-                entity.setId_subject(rs.getInt("id_subject"));
-                entity.setMark(rs.getInt("mark"));
-                entity.setDate(rs.getDate("date"));
-                entities.add(entity);
-            }
-        } catch (Exception ex) {
-            System.out.print(ex.getMessage());
+    public List<Mark> all() throws SQLException {
+        List<Mark> marks = new ArrayList<>();
+        ResultSet rs = mConnect.executeQuery("select * from mark");
+        while (rs.next()) {
+            Mark entity = new Mark();
+            entity.setMarkId(rs.getInt("id_mark"));
+            entity.setPupilId(rs.getInt("id_pupil"));
+            entity.setTeacherId(rs.getInt("id_teacher"));
+            entity.setSubjectId(rs.getInt("id_subject"));
+            entity.setMark(rs.getInt("mark"));
+            entity.setDate(rs.getDate("date"));
+            marks.add(entity);
         }
-        return entities;
+
+        return marks;
     }
 }

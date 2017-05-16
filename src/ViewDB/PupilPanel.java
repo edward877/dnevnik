@@ -8,7 +8,7 @@ package ViewDB;
 import Connection.ManageConnect;
 import ControllerDB.ClassDB;
 import ControllerDB.PupilDB;
-import ModelDB.Clas;
+import ModelDB.School_Class;
 import ModelDB.Pupil;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +27,7 @@ public class PupilPanel extends javax.swing.JFrame {
     ManageConnect mcon;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private List<Pupil> pupils;
-    private List<Clas> classes;
+    private List<School_Class> classes;
     PupilDB pupildb;
 
     public PupilPanel(ManageConnect mcon) {
@@ -37,7 +37,7 @@ public class PupilPanel extends javax.swing.JFrame {
             jTable1.setModel(tableModel);
             ShowTable();
         } catch (SQLException ex) {
-            Logger.getLogger(TeacherPanel.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -174,14 +174,13 @@ public class PupilPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
         Pupil pupil = pupils.get(jTable1.getSelectedRow());
         jTextField1.setText(pupil.getSurname());
         jTextField2.setText(pupil.getName());
         jTextField3.setText(pupil.getPatronymic());
         try {
-            for (Clas c : classes) {
-                if (c.getId_class() == pupil.getId_class()) {
+            for (School_Class c : classes) {
+                if (c.getClassId() == pupil.getId_class()) {
                     jComboBox1.setSelectedItem(c.getName());
                     break;
                 }
@@ -194,13 +193,12 @@ public class PupilPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         try {
             Pupil pupil = new Pupil();
             pupil.setSurname(jTextField1.getText());
             pupil.setName(jTextField2.getText());
             pupil.setPatronymic(jTextField3.getText());
-            pupil.setId_class(classes.get(jComboBox1.getSelectedIndex()).getId_class());
+            pupil.setId_class(classes.get(jComboBox1.getSelectedIndex()).getClassId());
 
             pupildb.add(pupil);
             MainPanel.MainP.ShowTable();
@@ -212,13 +210,12 @@ public class PupilPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         try {
             Pupil pupil = pupils.get(jTable1.getSelectedRow());
             pupil.setSurname(jTextField1.getText());
             pupil.setName(jTextField2.getText());
             pupil.setPatronymic(jTextField3.getText());
-            pupil.setId_class(classes.get(jComboBox1.getSelectedIndex()).getId_class());
+            pupil.setId_class(classes.get(jComboBox1.getSelectedIndex()).getClassId());
 
             pupildb.update(pupil);
             MainPanel.MainP.ShowTable();
@@ -228,13 +225,10 @@ public class PupilPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
         try {
             pupildb.delete(pupils.get(jTable1.getSelectedRow()));
             MainPanel.MainP.ShowTable();
@@ -244,8 +238,6 @@ public class PupilPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "выберите элемент", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Не делайте так", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -256,7 +248,6 @@ public class PupilPanel extends javax.swing.JFrame {
 
         pupildb = new PupilDB(mcon);
         pupils = pupildb.all();
-
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
         tableModel.addColumn("id_pupil");
@@ -264,16 +255,14 @@ public class PupilPanel extends javax.swing.JFrame {
         tableModel.addColumn("surname");
         tableModel.addColumn("name");
         tableModel.addColumn("patronymic");
-
         ClassDB cdb = new ClassDB(mcon);
         for (Pupil e : pupils) {
             tableModel.addRow(new String[]{e.getId_pupil() + "", cdb.one(e.getId_class()).getName(),
                 e.getSurname(), e.getName(), e.getPatronymic()});
         }
-
         jComboBox1.removeAllItems();
         classes = cdb.all();
-        for (Clas e : classes) {
+        for (School_Class e : classes) {
             jComboBox1.addItem(e.toString());
         }
     }
